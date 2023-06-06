@@ -15,6 +15,8 @@ class CreateTablerosTable extends Migration
     {
         Schema::create('tableros', function (Blueprint $table) {
             $table->id();
+            $table->string('Nombre');
+            $table->string('Imagen');
             $table->timestamps();
         });
     }

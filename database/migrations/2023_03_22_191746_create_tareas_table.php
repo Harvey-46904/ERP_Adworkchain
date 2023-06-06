@@ -15,6 +15,8 @@ class CreateTareasTable extends Migration
     {
         Schema::create('tareas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('tablero_id');
+            $table->foreign('tablero_id')->references('id')->on('tableros');
             $table->date("Fecha_inicio");
             $table->date("Fecha_fin");
             $table->string("Responsables");

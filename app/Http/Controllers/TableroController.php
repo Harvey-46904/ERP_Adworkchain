@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tablero;
 use Illuminate\Http\Request;
-
+use Illuminate\support\Facades\Validator;
 class TableroController extends Controller
 {
     /**
@@ -14,7 +14,9 @@ class TableroController extends Controller
      */
     public function index()
     {
-        //
+        $consulta=Tablero::all();
+
+        return response (["data"=> $consulta]);
     }
 
     /**
@@ -35,7 +37,30 @@ class TableroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar = [
+            'Nombre' => 'required | string',
+            'Imagen' => 'required | string',
+             ];
+
+         $messages = [
+            'Nombre'  => 'The :attribute and :other must match.',
+            'Imagen' => 'The :attribute must be exactly :size.',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
+        $guardar_tablero=new Tablero;
+        $guardar_tablero->Nombre=$request->Nombre;
+        $guardar_tablero->Imagen=$request->Imagen;
+        $guardar_tablero->save();
+        return response(["data"=>"guardado exitosamente"]);
+    }
     }
 
     /**
@@ -44,9 +69,10 @@ class TableroController extends Controller
      * @param  \App\Models\Tablero  $tablero
      * @return \Illuminate\Http\Response
      */
-    public function show(Tablero $tablero)
+    public function show($tablero)
     {
-        //
+        $tablero=Tablero::findOrFail($tablero);
+        return response (["data"=>$tablero]);
     }
 
     /**
@@ -67,9 +93,30 @@ class TableroController extends Controller
      * @param  \App\Models\Tablero  $tablero
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tablero $tablero)
+    public function update(Request $request,  $tablero)
     {
-        //
+        $guardar = [
+            'Nombre' => 'required | string',
+            'Imagen' => 'required | string',
+             ];
+
+         $messages = [
+            'Nombre'  => 'The :attribute and :other must match.',
+            'Imagen' => 'The :attribute must be exactly :size.',
+        ];
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
+
+        $actualizar_cliente=Tablero::findOrFail($cliente);
+        
+        $actualizar_tablero->Nombre=$request->Nombre;
+        $actualizar_tablero->Imagen=$request->Imagen;
+        $actualizar_tablero->save();
+        return response(["data"=>"datos actualizados"]);
+    }
     }
 
     /**
@@ -78,8 +125,10 @@ class TableroController extends Controller
      * @param  \App\Models\Tablero  $tablero
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tablero $tablero)
+    public function destroy( $tablero)
     {
-        //
+        $tablero=Tablero::findOrFail($tablero);                          
+        $tablero->delete();
+        return response(["data"=> "Eliminado exitosamente"]);
     }
 }

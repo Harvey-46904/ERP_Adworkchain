@@ -33,6 +33,7 @@ class TareasController extends Controller {
 
     public function store( Request $request ) {
         $rules = [
+            'tablero_id' => 'required|integer',
             'Fecha_inicio' => 'required|date',
             'Fecha_fin' => 'required|date',
             'Responsables' => 'required|string',
@@ -40,6 +41,7 @@ class TareasController extends Controller {
         ];
 
         $messages = [
+            'tablero_id' => 'Digite id tablero',
             'Fecha_inicio' => 'Digite fecha inicio',
             'Fecha_fin' => 'Digite fecha fin',
             'Responsables' => 'Digite responsables',
@@ -51,6 +53,7 @@ class TareasController extends Controller {
             return response( [ 'Error de los datos'=>$validator->errors() ] );
         } else {
             $agregar_tareas = new Tareas;
+            $agregar_tareas->tablero_id = $request->tablero_id;
             $agregar_tareas->Fecha_inicio = $request->Fecha_inicio;
             $agregar_tareas->Fecha_fin = $request->Fecha_fin;
             $agregar_tareas->Responsables = $request->Responsables;
@@ -90,6 +93,7 @@ class TareasController extends Controller {
     public function update( Request $request, $tareas ) {
 
         $rules = [
+            'tablero_id' => 'required|integer',
             'Fecha_inicio' => 'required|date',
             'Fecha_fin' => 'required|date',
             'Responsables' => 'required|string',
@@ -97,6 +101,7 @@ class TareasController extends Controller {
         ];
 
         $messages = [
+            'tablero_id' => 'Digite id tablero',
             'Fecha_inicio.required' => 'Digite fecha inicio',
             'Fecha_fin.required' => 'Digite fecha fin',
             'Responsables.required' => 'Digite responsables',
@@ -108,6 +113,7 @@ class TareasController extends Controller {
            return response( [ 'Error de los datos'=>$validator->errors() ] );
         } else {
             $actualizar_tareas = Tareas::findOrFail($tareas);
+            $actualizar_tareas->tablero_id = $request->tablero_id;
             $actualizar_tareas->Fecha_inicio = $request->Fecha_inicio;
             $actualizar_tareas->Fecha_fin = $request->Fecha_fin;
             $actualizar_tareas->Responsables = $request->Responsables;
