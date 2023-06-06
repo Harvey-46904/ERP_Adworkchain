@@ -25,4 +25,4 @@ Route::resource('tareas', 'TareasController',['except'=>['create','edit']]);
 
 Route::get("twitter","TwitterController@index");
 
-Route::post("llamada","ChatGtp@llamada");
+Route::post("llamadas","ChatGtp@llamada");
