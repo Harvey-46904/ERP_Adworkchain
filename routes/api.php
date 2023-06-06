@@ -21,3 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('empleados', 'EmpleadosController',['except'=>['create','edit']]);
 Route::resource('clientes', 'ClientesController',['except'=>['create','edit']]);
 Route::resource('tareas', 'TareasController',['except'=>['create','edit']]);
+
+
+Route::get("twitter","TwitterController@index");
+
+Route::post("llamada","ChatGtp@llamada");

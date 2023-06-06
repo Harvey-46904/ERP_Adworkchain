@@ -15,7 +15,7 @@ class EmpleadosController extends Controller {
 
     public function index() {
         $registro = Empleados::all();
-        return response( [ 'data'=>$registro ] );
+        return response( $registro  );
     }
 
     /**

@@ -14,6 +14,14 @@ return [
     |
     */
 
+    'chatgpt' => [
+        'base_uri' => 'https://api.openai.com/v1',
+        'headers' => [
+            'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
+            'Content-Type' => 'application/json',
+        ],
+    ],
+    
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

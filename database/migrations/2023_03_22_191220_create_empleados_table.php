@@ -17,6 +17,7 @@ class CreateEmpleadosTable extends Migration
             $table->id();
             $table->string("Nombre_completo");
             $table->string("Cedula");
+            $table->string("Cargo");
             $table->date("Fecha_ingreso");
             $table->date("Fecha_finalizacion");
             $table->string("Email");
@@ -24,6 +25,10 @@ class CreateEmpleadosTable extends Migration
             $table->string("Contacto_emergencia");
             $table->string("Numero_contacto_emergencia");
             $table->timestamps();
+
+           
+
+            
         });
     }
 
