@@ -110,7 +110,7 @@ class TableroController extends Controller
         }
         else{
 
-        $actualizar_cliente=Tablero::findOrFail($cliente);
+        $actualizar_tablero=Tablero::findOrFail($tablero);
         
         $actualizar_tablero->Nombre=$request->Nombre;
         $actualizar_tablero->Imagen=$request->Imagen;

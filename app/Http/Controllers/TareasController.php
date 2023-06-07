@@ -72,7 +72,7 @@ class TareasController extends Controller {
 
     public function show( $tareas ) {
         $consultar = Tareas::findOrFail( $tareas );
-        return response( [ 'data'=>'Dato buscado' ] );
+        return response( [ 'data'=>$consultar ] );
     }
 
     /**

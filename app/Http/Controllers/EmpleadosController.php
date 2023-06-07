@@ -32,8 +32,9 @@ class EmpleadosController extends Controller {
     */
 
     public function store( Request $request ) {
+        
         $rules = [
-            'Nombre_completo' => 'required|unique: empleados|max: 12',
+            'Nombre_completo' => 'required | string',
             'Cedula' => 'required | string',
             'Fecha_ingreso' => 'required  | date',
             'Fecha_finalizacion' => 'required | date',
@@ -61,6 +62,7 @@ class EmpleadosController extends Controller {
             $agregar_empleados = new Empleados;
             $agregar_empleados->Nombre_completo = $request->Nombre_completo;
             $agregar_empleados->Cedula = $request->Cedula;
+            $agregar_empleados->Cargo = $request->Cargo;
             $agregar_empleados->Fecha_ingreso = $request->Fecha_ingreso;
             $agregar_empleados->Fecha_finalizacion = $request->Fecha_finalizacion;
             $agregar_empleados->Email = $request->Email;
@@ -102,7 +104,7 @@ class EmpleadosController extends Controller {
 
     public function update( Request $request, $empleados ) {
         $rules = [
-            'Nombre_completo' => 'required|unique: empleados|max: 12',
+            'Nombre_completo' => 'string',
             'Cedula' => 'required | string',
             'Fecha_ingreso' => 'required  | date',
             'Fecha_finalizacion' => 'required | date',
@@ -127,15 +129,16 @@ class EmpleadosController extends Controller {
         if ( $validator->fails() ) {
             return response( [ 'Error de los datos'=>$validator->errors() ] );
         } else {
-            $actualizar_tareas = Empleados::findOrFail($empleados);
+            $actualizar_empleados = Empleados::findOrFail($empleados);
             $actualizar_empleados->Nombre_completo = $request->Nombre_completo;
             $actualizar_empleados->Cedula = $request->Cedula;
+            $actualizar_empleados->Cargo = $request->Cargo;
             $actualizar_empleados->Fecha_ingreso = $request->Fecha_ingreso;
             $actualizar_empleados->Fecha_finalizacion = $request->Fecha_finalizacion;
             $actualizar_empleados->Email = $request->Email;
             $actualizar_empleados->Telefono_personal = $request->Telefono_personal;
             $actualizar_empleados->Contacto_emergencia = $request->Contacto_emergencia;
-            $actualizar->save();
+            $actualizar_empleados->save();
             return response( [ 'data'=>'Registro actualizado exitosamente' ] );
         }
     }
@@ -147,8 +150,8 @@ class EmpleadosController extends Controller {
     * @return \Illuminate\Http\Response
     */
 
-    public function destroy( Empleados $empleados ) {
-        $empleados = empleados::findOrFail( $empleados );
+    public function destroy(  $empleados ) {
+        $empleados = Empleados::findOrFail( $empleados );
         $empleados->delete();
         return response( [ 'data'=> 'Eliminado exitosamente' ] );
     }
