@@ -16,7 +16,7 @@ class TableroController extends Controller
     {
         $consulta=Tablero::all();
 
-        return response (["data"=> $consulta]);
+        return response ($consulta);
     }
 
     /**

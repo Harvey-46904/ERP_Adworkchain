@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('empleados', 'EmpleadosController',['except'=>['create','edit']]);
 Route::resource('clientes', 'ClientesController',['except'=>['create','edit']]);
 Route::resource('tareas', 'TareasController',['except'=>['create','edit']]);
-Route::resource('tablero', 'TableroController',['except'=>['create','edit']]);
+
 Route::resource('contrato', 'ContratoController',['except'=>['create','edit']]);
 Route::resource('nomina', 'NominaController',['except'=>['create','edit']]);
 
@@ -29,3 +29,13 @@ Route::resource('nomina', 'NominaController',['except'=>['create','edit']]);
 Route::get("twitter","TwitterController@index");
 
 Route::post("llamadas","ChatGtp@llamada");
+
+Route::Post("register","AuthController@register");
+Route::Post("Login","AuthController@Login");
+
+
+
+Route::middleware(['auth:sanctum'])->group(function (){
+    Route::get("Logout","AuthController@Logout");
+    Route::resource('tablero', 'TableroController',['except'=>['create','edit']]);
+});
