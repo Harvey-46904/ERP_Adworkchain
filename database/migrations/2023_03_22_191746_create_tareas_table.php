@@ -21,6 +21,7 @@ class CreateTareasTable extends Migration
             $table->date("Fecha_fin");
             $table->string("Responsables");
             $table->string("Tarea");
+            $table->integer("ubicacion");
             $table->timestamps();
         });
     }

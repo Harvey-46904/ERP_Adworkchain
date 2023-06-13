@@ -25,8 +25,9 @@ class tareasSeeder extends Seeder
                 'Fecha_fin' => $faker->date(),
                 'Responsables' => $faker->sentence(),
                 'Tarea' => $faker->sentence(),
+                'ubicacion' => $faker->sentence(),
                 
-                // Otros campos de la tabla nomina
+                
             ]);
         }
     }
