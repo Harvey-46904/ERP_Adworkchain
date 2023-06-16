@@ -19,8 +19,9 @@ class CreateTareasTable extends Migration
             $table->foreign('tablero_id')->references('id')->on('tableros');
             $table->date("Fecha_inicio");
             $table->date("Fecha_fin");
-            $table->string("Responsables");
             $table->string("Tarea");
+            $table->text("Descripcion");
+            $table->integer("positions");
             $table->timestamps();
         });
     }

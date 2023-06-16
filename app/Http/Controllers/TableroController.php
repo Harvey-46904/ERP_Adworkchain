@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tablero;
+use App\Models\BoardPersonal;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+use DB;
 class TableroController extends Controller
 {
     /**
@@ -15,7 +17,18 @@ class TableroController extends Controller
     public function index()
     {
         $consulta=Tablero::all();
+        return response ($consulta);
+    }
 
+    public function personal_tablero($id){
+       
+        $consulta = DB::table('board_personals')
+        ->select('tableros.*')
+        ->join('tableros', 'board_personals.id_tablero', '=', 'tableros.id')
+       
+        ->where("board_personals.id_user","=",$id)
+        ->get();
+      
         return response ($consulta);
     }
 
@@ -37,9 +50,10 @@ class TableroController extends Controller
      */
     public function store(Request $request)
     {
+       
         $guardar = [
             'Nombre' => 'required | string',
-            'Imagen' => 'required | string',
+            'Imagen' => 'required|image',
              ];
 
          $messages = [
@@ -55,11 +69,21 @@ class TableroController extends Controller
             return response(['Error de los datos'=>$validator->errors()]);
         }
         else{
+            
+            $ldate = date('Y-m-d-H_i_s');
+            $file = $request->file('Imagen');
+            $nombre = $file->getClientOriginalName();
+            \Storage::disk('local')->put("/img_tablero/".$ldate.$nombre,  \File::get($file));
         $guardar_tablero=new Tablero;
         $guardar_tablero->Nombre=$request->Nombre;
-        $guardar_tablero->Imagen=$request->Imagen;
+        $guardar_tablero->Imagen=$ldate.$nombre;
         $guardar_tablero->save();
-        return response(["data"=>"guardado exitosamente"]);
+            $tablero_personal=new BoardPersonal;
+            $tablero_personal->id_tablero=$guardar_tablero->id;
+            $tablero_personal->id_user=$request->User;
+            $tablero_personal->tipo_personal="Creador";
+            $tablero_personal->save();
+        return self::personal_tablero($request->User);
     }
     }
 

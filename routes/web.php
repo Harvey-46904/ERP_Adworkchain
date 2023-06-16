@@ -19,3 +19,4 @@ Route::get('/', function () {
 Route::resource('empleados', 'EmpleadosController',['except'=>['create','edit']]);
 Route::resource('clientes', 'ClientesController',['except'=>['create','edit']]);
 Route::resource('tareas', 'TareasController',['except'=>['create','edit']]);
+

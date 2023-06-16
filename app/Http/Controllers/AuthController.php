@@ -10,7 +10,10 @@ use \stdClass;
 use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
-    //
+    public function index(){
+        $consulta=User::all();
+        return response($consulta);
+    }
 
     public function register(Request $request){
         $validator= Validator::make($request->all(),[
