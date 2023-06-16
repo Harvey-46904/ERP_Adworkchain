@@ -44,6 +44,7 @@ class TareasController extends Controller {
             'Fecha_fin' => 'required|date',
             'Descripcion' => 'required|string',
             'Tarea' => 'required|string',
+            'ubicacion' => 'required|integer',
         ];
 
         $messages = [
@@ -52,6 +53,7 @@ class TareasController extends Controller {
             'Fecha_fin' => 'Digite fecha fin',
             'Descripcion' => 'Digite descripcion',
             'Tarea' => 'Digite tarea',
+            'ubicacion' => 'digite ubicacion',
         ];
 
         $validator = Validator::make( $request->all(), $rules,  $messages );
@@ -119,6 +121,7 @@ class TareasController extends Controller {
             'Fecha_fin' => 'required|date',
             'Responsables' => 'required|string',
             'Tarea' => 'required|string',
+            'ubicacion' => 'required|integer',
         ];
 
         $messages = [
@@ -127,6 +130,7 @@ class TareasController extends Controller {
             'Fecha_fin.required' => 'Digite fecha fin',
             'Responsables.required' => 'Digite responsables',
             'Tarea.required' => 'Digite tarea',
+            'ubicacion' => 'digite ubicacion',
         ];
 
         $validator = Validator::make( $request->all(), $rules,  $messages );
@@ -139,6 +143,7 @@ class TareasController extends Controller {
             $actualizar_tareas->Fecha_fin = $request->Fecha_fin;
             $actualizar_tareas->Responsables = $request->Responsables;
             $actualizar_tareas->Tarea = $request->Tarea;
+            $actualizar_tareas->ubicacion = $request->ubicacion;
             $actualizar_tareas->save();
             return response( [ 'data'=>'Registro actualizado exitosamente' ] );
        }
