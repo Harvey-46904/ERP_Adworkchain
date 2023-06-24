@@ -60,6 +60,7 @@ class EmpleadosController extends Controller {
             return response( [ 'Error de los datos'=>$validator->errors() ] );
         } else {
             $agregar_empleados = new Empleados;
+            $agregar_empleados->id_user = $request->id_user;
             $agregar_empleados->Nombre_completo = $request->Nombre_completo;
             $agregar_empleados->Cedula = $request->Cedula;
             $agregar_empleados->Cargo = $request->Cargo;
@@ -72,7 +73,7 @@ class EmpleadosController extends Controller {
             $agregar_empleados->save();
             return response( [ 'data'=>'Agregado exitosamente' ] );
         }
-
+       
     }
 
     /**
@@ -86,6 +87,7 @@ class EmpleadosController extends Controller {
         $consultar = Empleados::findOrFail( $empleados );
         return response( [ 'data'=>'Dato buscado' ] );
     }
+   
 
     /**
     * Show the form for editing the specified resource.
@@ -130,6 +132,7 @@ class EmpleadosController extends Controller {
             return response( [ 'Error de los datos'=>$validator->errors() ] );
         } else {
             $actualizar_empleados = Empleados::findOrFail($empleados);
+            $actualizar_empleados->id_user = $request->id_user;
             $actualizar_empleados->Nombre_completo = $request->Nombre_completo;
             $actualizar_empleados->Cedula = $request->Cedula;
             $actualizar_empleados->Cargo = $request->Cargo;
