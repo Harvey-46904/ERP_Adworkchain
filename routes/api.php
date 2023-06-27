@@ -33,6 +33,7 @@ Route::post("llamadas","ChatGtp@llamada");
 Route::Post("register","AuthController@register");
 Route::Post("Login","AuthController@Login");
 Route::get("get_user","AuthController@index");
+Route::put("actucontra/{id}","AuthController@Actulizar_contraseña");
 
 
 
