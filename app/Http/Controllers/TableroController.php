@@ -155,4 +155,29 @@ class TableroController extends Controller
         $tablero->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
+
+    public function Vista_tablero(){
+        return view ('formulario');
+
+    }
+    public function guardar_imagen(Request $request){
+    $request->validate([
+        'imagen' => 'required|file|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+    if ($request->hasFile('imagen')) {
+        $imagen = $request->file('imagen');
+        $nombreImagen = $imagen->getClientOriginalName();
+        $rutaImagen = $imagen->storeAs('carpeta/destino', $nombreImagen, 'public');
+    }
+
+    
+    $tablero = new Tablero();
+    $tablero->Nombre = $request->input('name');
+    $tablero->Imagen = $nombreImagen;
+    $tablero->save();
+
+    return redirect()->back()->with('success', 'Imagen subida exitosamente');
+}
+
 }

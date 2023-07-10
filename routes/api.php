@@ -39,12 +39,14 @@ Route::put("actucontra/{id}","AuthController@Actulizar_contraseña");
 
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::get("Logout","AuthController@Logout");
-    Route::resource('tablero', 'TableroController',['except'=>['create','edit']]);
+   
     Route::get('tareas_board/{id}', 'TareasController@get_task_board');
     Route::get("tablero_personal/{id}","TableroController@personal_tablero");
     Route::post("update_posicion","TareasController@update_posicion");
+    
 });
-
+Route::resource('tablero', 'TableroController',['except'=>['create','edit']]);
+Route::get("formulario","TableroController@Vista_tablero");
 
 Route::get('data/{carpeta}/{nombre}', function ($carpeta,$nombre) {
     
